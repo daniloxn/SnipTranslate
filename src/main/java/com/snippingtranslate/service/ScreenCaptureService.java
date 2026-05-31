@@ -7,14 +7,18 @@ import java.awt.event.MouseMotionAdapter;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import javax.imageio.ImageIO;
+
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JWindow;
+
+
 
 public class ScreenCaptureService {
     static Rectangle selection;
     static Point startPoint;
     static Point endPoint;
+    public static JWindow activeWindow;
 
     // ✅ Interface para retornar a imagem quando pronto
     public interface CaptureCallback {
@@ -64,6 +68,7 @@ public class ScreenCaptureService {
             };
 
             JWindow janela = new JWindow();
+            
             janela.setAlwaysOnTop(true);
             janela.setFocusableWindowState(true);
             janela.requestFocus();
@@ -71,8 +76,9 @@ public class ScreenCaptureService {
             janela.setLocation(totalBounds.x, totalBounds.y);
             janela.setSize(totalBounds.width, totalBounds.height);
             janela.setVisible(true);
+            activeWindow = janela;
             
-
+                    
             panel.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mousePressed(MouseEvent e) {
@@ -94,11 +100,15 @@ public class ScreenCaptureService {
                             selection.height
                         );
 
-                        File imageRecorte = new File("C:/Users/danil/IdeaProjects/SnipTranslate/temp/recorte.png");
+                       File tempDir = new File("temp");
 
+                       if (!tempDir.exists()) {
+                        tempDir.mkdirs();
+                       }
+                       File imageRecorte = new File(tempDir, "recorte.png");
                         try {
                             ImageIO.write(recorte, "png", imageRecorte);
-                            System.out.println("✅ Print tirado com sucesso!");
+                            System.out.println("✅ Print tirado com sucesso!" + imageRecorte.getAbsolutePath());
                             
                             // ✅ Chama o callback com a imagem
                             if (callback != null) {
@@ -106,7 +116,10 @@ public class ScreenCaptureService {
                             }
                             
                             janela.dispose();
+                               activeWindow = null;
                         } catch (Exception ex) {
+                            janela.dispose();
+                            activeWindow = null;
                             JOptionPane.showMessageDialog(null, "❌ Erro no processamento: " + ex.getMessage());
                         }
                     }
@@ -123,6 +136,7 @@ public class ScreenCaptureService {
             });
 
         } catch (AWTException e) {
+            activeWindow = null;
             e.printStackTrace();
         }
     }

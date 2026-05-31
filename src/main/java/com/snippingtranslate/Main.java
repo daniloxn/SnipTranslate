@@ -18,7 +18,7 @@ public class Main {
         HotKeyListener hotKeyListener = new HotKeyListener();
         System.out.println("\n✅ Sistema pronto!");
         System.out.println("📌 Ícone adicionado à bandeja");
-        System.out.println("⌨️  Atalho: Ctrl+Shift+T\n");
+        System.out.println("⌨️  Atalho: alt+s\n");
 
         try {
             Thread.currentThread().join();  // Bloqueia indefinidamente
