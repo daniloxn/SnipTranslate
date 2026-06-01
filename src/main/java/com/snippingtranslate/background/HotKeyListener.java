@@ -57,6 +57,11 @@ public class HotKeyListener implements NativeKeyListener {
         // Se ALT + S forem pressionados, inicia o processo de captura e tradução
         if (altPressed && keycode == NativeKeyEvent.VC_S) {
             System.out.println("Atalho detectado.");
+
+            if (ScreenCaptureService.activeWindow != null && ScreenCaptureService.activeWindow.isDisplayable()) {
+                ScreenCaptureService.activeWindow.dispose();
+                ScreenCaptureService.activeWindow = null;
+            }
             
             // Cria um serviço de captura de tela com callback para quando a imagem for capturada
             ScreenCaptureService captureService = new ScreenCaptureService((imagemCapturada) -> {

@@ -15,6 +15,7 @@ public class Main {
         );
 
         // [2] Registra atalho global
+        @SuppressWarnings("unused")
         HotKeyListener hotKeyListener = new HotKeyListener();
         System.out.println("\n✅ Sistema pronto!");
         System.out.println("📌 Ícone adicionado à bandeja");

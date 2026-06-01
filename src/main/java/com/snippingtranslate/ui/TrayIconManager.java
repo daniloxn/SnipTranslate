@@ -2,16 +2,17 @@ package com.snippingtranslate.ui;
 
 import java.awt.*;
 
-
+// Classe responsável por gerenciar o ícone na bandeja do sistema
 public class TrayIconManager {
     private SystemTray tray;
     private TrayIcon trayIcon;
 
+    // Construtor: configura e adiciona o ícone à bandeja do sistema
     public TrayIconManager() {
         try {
-            // ✅ Verifica se sistema operacional suporta system tray
+            // Verifica se sistema operacional suporta system tray
             if (!SystemTray.isSupported()) {
-                System.out.println("❌ System Tray não é suportado!");
+                System.out.println("System Tray não é suportado!");
                 return;
             }
 
@@ -31,10 +32,10 @@ public class TrayIconManager {
             // Adiciona à bandeja
             tray.add(trayIcon);
 
-            System.out.println("✅ TrayIcon adicionado com sucesso!");
+            System.out.println("TrayIcon adicionado com sucesso!");
 
         } catch (AWTException e) {
-            System.out.println("❌ Erro ao adicionar TrayIcon: " + e.getMessage());
+            System.out.println("Erro ao adicionar TrayIcon: " + e.getMessage());
         }
     }
 
@@ -44,7 +45,7 @@ public class TrayIconManager {
 
         MenuItem exitItem = new MenuItem("Sair");
         exitItem.addActionListener(e -> {
-            System.out.println("👋 Encerrando aplicação...");
+            System.out.println("Encerrando aplicação...");
             System.exit(0);
         });
 
@@ -52,6 +53,7 @@ public class TrayIconManager {
         return popup;
     }
 
+    // Exibe uma notificação na bandeja do sistema
     public void showNotification(String title, String message) {
         if (trayIcon != null) {
             trayIcon.displayMessage(title, message, TrayIcon.MessageType.INFO);
