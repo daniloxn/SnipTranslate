@@ -2,6 +2,10 @@ package com.snippingtranslate.ui;
 
 import java.awt.*;
 
+import com.snippingtranslate.screen.SettingsPanel;
+
+import javafx.application.Platform;
+
 // Classe responsável por gerenciar o ícone na bandeja do sistema
 public class TrayIconManager {
     private SystemTray tray;
@@ -20,7 +24,10 @@ public class TrayIconManager {
             tray = SystemTray.getSystemTray();
 
             // Cria ícone (16x16 pixels é o padrão)
-            Image image = Toolkit.getDefaultToolkit().getImage("src/main/java/com/snippingtranslate/icons/icon.png");  // Você cria uma imagem
+            Image image = Toolkit.getDefaultToolkit().getImage("src/main/java/com/snippingtranslate/icons/icon.png"); // Você
+                                                                                                                      // cria
+                                                                                                                      // uma
+                                                                                                                      // imagem
 
             // Cria popup menu (clique direito no ícone)
             PopupMenu popup = createPopupMenu();
@@ -49,6 +56,10 @@ public class TrayIconManager {
             System.exit(0);
         });
 
+        MenuItem settingsItem = new MenuItem("Configurações");
+        settingsItem.addActionListener(e -> Platform.runLater(() -> new SettingsPanel().show()));
+
+        popup.add(settingsItem);
         popup.add(exitItem);
         return popup;
     }

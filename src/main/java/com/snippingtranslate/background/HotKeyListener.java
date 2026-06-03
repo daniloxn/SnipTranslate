@@ -13,7 +13,9 @@ import com.github.kwhat.jnativehook.keyboard.NativeKeyListener;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import io.github.cdimascio.dotenv.Dotenv;
 import com.snippingtranslate.screen.FloatingPanel;
+import com.snippingtranslate.screen.SettingsPanel;
 
 // Classe que monitora teclas pressionadas globalmente no sistema operacional
 public class HotKeyListener implements NativeKeyListener {
@@ -62,6 +64,13 @@ public class HotKeyListener implements NativeKeyListener {
         // Se ALT + S forem pressionados, inicia o processo de captura e tradução
         if (altPressed && keycode == NativeKeyEvent.VC_S) {
             System.out.println("Atalho detectado.");
+
+            Dotenv dotenv = Dotenv.configure().ignoreIfMissing().load();
+            String apiKey = dotenv.get("DEEPL_API_KEY");
+            if (apiKey == null || apiKey.isEmpty()) {
+                Platform.runLater(() -> new SettingsPanel().show());
+                return;
+            }
 
             if (ScreenCaptureService.activeWindow != null && ScreenCaptureService.activeWindow.isDisplayable()) {
                 ScreenCaptureService.activeWindow.dispose();
@@ -115,6 +124,16 @@ public class HotKeyListener implements NativeKeyListener {
             logger.info("✅ Global Hook desregistrado");
         } catch (Exception e) {
             logger.log(Level.SEVERE, "❌ Erro ao desregistrar hook", e);
+        }
+    }
+
+    public void handlePrintAction() {
+        Dotenv dotenv = Dotenv.configure().ignoreIfMissing().load();
+        String apiKey = dotenv.get("DEEPL_API_KEY");
+
+        if (apiKey == null || apiKey.isEmpty()) {
+            Platform.runLater(() -> new SettingsPanel().show());
+            return;
         }
     }
 }
