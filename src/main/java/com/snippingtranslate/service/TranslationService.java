@@ -12,7 +12,8 @@ import com.deepl.api.TextResult;
 // Declaração da classe pública TranslationService, responsável por serviços de tradução
 public class TranslationService {
 
-    // Método estático que recebe um texto e retorna sua tradução para português (Brasil)
+    // Método estático que recebe um texto e retorna sua tradução para português
+    // (Brasil)
     public static String translateText(String text) {
         try {
             // Carrega as variáveis de ambiente a partir do arquivo .env
@@ -29,7 +30,8 @@ public class TranslationService {
             // Cria um cliente DeepL utilizando a chave de autenticação
             DeepLClient cliente = new DeepLClient(authKey);
 
-            // Chama o método de tradução: texto de entrada, idioma de origem null (detecção automática) e destino "pt-BR"
+            // Chama o método de tradução: texto de entrada, idioma de origem null (detecção
+            // automática) e destino "pt-BR"
             TextResult result = cliente.translateText(text, null, "pt-BR");
 
             // Exibe o texto traduzido no console
@@ -37,11 +39,11 @@ public class TranslationService {
 
             // Retorna o texto traduzido
             return result.getText();
-            
+
         } catch (Exception e) {
             // Em caso de erro, imprime uma mensagem no console de erro e retorna null
             System.err.println("❌ Erro na tradução: " + e.getMessage());
-            return null; 
+            return null;
         }
     }
 }

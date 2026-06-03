@@ -3,12 +3,17 @@ package com.snippingtranslate.background;
 
 // Importa as classes de serviço, hook global de teclado e logging
 import com.snippingtranslate.service.*;
+
+import javafx.application.Platform;
+
 import com.github.kwhat.jnativehook.GlobalScreen;
 import com.github.kwhat.jnativehook.keyboard.NativeKeyEvent;
 import com.github.kwhat.jnativehook.keyboard.NativeKeyListener;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import com.snippingtranslate.screen.FloatingPanel;
 
 // Classe que monitora teclas pressionadas globalmente no sistema operacional
 public class HotKeyListener implements NativeKeyListener {
@@ -62,8 +67,9 @@ public class HotKeyListener implements NativeKeyListener {
                 ScreenCaptureService.activeWindow.dispose();
                 ScreenCaptureService.activeWindow = null;
             }
-            
-            // Cria um serviço de captura de tela com callback para quando a imagem for capturada
+
+            // Cria um serviço de captura de tela com callback para quando a imagem for
+            // capturada
             ScreenCaptureService captureService = new ScreenCaptureService((imagemCapturada) -> {
                 System.out.println("Imagem capturada!");
 
@@ -71,12 +77,17 @@ public class HotKeyListener implements NativeKeyListener {
                 new Thread(() -> {
                     // Extrai texto da imagem usando OCR
                     OCRService ocr = new OCRService();
-                    String texto = ocr.extractText(imagemCapturada);
-                    System.out.println("Texto: " + texto);
-                    
+                    String textocr = ocr.extractText(imagemCapturada);
+                    System.out.println("Texto: " + textocr);
+
                     // Traduz o texto extraído
-                    String traduzido = TranslationService.translateText(texto);
+                    String traduzido = TranslationService.translateText(textocr);
                     System.out.println("Traduzido: " + traduzido);
+
+                    Platform.runLater(() -> {
+                        FloatingPanel panel = new FloatingPanel();
+                        panel.showTranslation(traduzido);
+                    });
 
                 }).start();
             });
@@ -90,7 +101,7 @@ public class HotKeyListener implements NativeKeyListener {
     @Override
     public void nativeKeyReleased(NativeKeyEvent nativeEvent) {
         int keycode = nativeEvent.getKeyCode();
-        
+
         // Marca que ALT foi liberado
         if (keycode == NativeKeyEvent.VC_ALT) {
             altPressed = false;
