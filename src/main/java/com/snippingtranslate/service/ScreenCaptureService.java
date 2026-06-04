@@ -33,7 +33,8 @@ public class ScreenCaptureService {
     private CaptureCallback callback;
 
     // ✅ Construtor que recebe o callback
-    // Inicializa o serviço com um callback para notificar quando a captura for finalizada
+    // Inicializa o serviço com um callback para notificar quando a captura for
+    // finalizada
     public ScreenCaptureService(CaptureCallback callback) {
         this.callback = callback;
     }
@@ -73,15 +74,16 @@ public class ScreenCaptureService {
                     // Se houver uma seleção, desenha a região recortada sem o escurecimento
                     if (selection != null) {
                         g2.drawImage(screenShot,
-                            selection.x, selection.y,
-                            selection.x + selection.width, selection.y + selection.height,
-                            selection.x, selection.y,
-                            selection.x + selection.width, selection.y + selection.height,
-                            null);
+                                selection.x, selection.y,
+                                selection.x + selection.width, selection.y + selection.height,
+                                selection.x, selection.y,
+                                selection.x + selection.width, selection.y + selection.height,
+                                null);
                         // Desenha a borda da seleção
-                        //g2.setColor(new Color(0,200,255));
+                        // g2.setColor(new Color(0,200,255));
                         g2.setStroke(new BasicStroke(1, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
-                        g2.setPaint(new GradientPaint(selection.x, selection.y, Color.CYAN, selection.x + selection.width, selection.y + selection.height, Color.BLUE));
+                        g2.setPaint(new GradientPaint(selection.x, selection.y, Color.CYAN,
+                                selection.x + selection.width, selection.y + selection.height, Color.BLUE));
                         g2.drawRect(selection.x, selection.y, selection.width, selection.height);
                     }
                 }
@@ -89,7 +91,7 @@ public class ScreenCaptureService {
 
             // Cria uma janela sem decoração para exibir a sobreposição
             JWindow janela = new JWindow();
-            
+
             // Configura a janela para ficar sempre no topo
             janela.setAlwaysOnTop(true);
             // Permite que a janela receba foco
@@ -105,7 +107,7 @@ public class ScreenCaptureService {
             janela.setVisible(true);
             // Guarda referência à janela ativa
             activeWindow = janela;
-            
+
             // Adiciona listener de mouse para capturar cliques e solturas
             panel.addMouseListener(new MouseAdapter() {
                 @Override
@@ -131,33 +133,32 @@ public class ScreenCaptureService {
                     if (selection != null && selection.width > 0 && selection.height > 0) {
                         // Recorta a região selecionada da captura original
                         BufferedImage recorte = screenShot.getSubimage(selection.x,
-                            selection.y,
-                            selection.width,
-                            selection.height
-                        );
+                                selection.y,
+                                selection.width,
+                                selection.height);
 
-                       // Cria diretório temporário se não existir
-                       File tempDir = new File("temp");
+                        // Cria diretório temporário se não existir
+                        File tempDir = new File("temp");
 
-                       if (!tempDir.exists()) {
-                        tempDir.mkdirs();
-                       }
-                       // Arquivo para salvar o recorte
-                       File imageRecorte = new File(tempDir, "recorte.png");
+                        if (!tempDir.exists()) {
+                            tempDir.mkdirs();
+                        }
+                        // Arquivo para salvar o recorte
+                        File imageRecorte = new File(tempDir, "recorte.png");
                         try {
                             // Salva a imagem recortada em disco
                             ImageIO.write(recorte, "png", imageRecorte);
                             System.out.println("✅ Print tirado com sucesso!" + imageRecorte.getAbsolutePath());
-                            
+
                             // ✅ Chama o callback com a imagem
                             // Notifica o callback informando que a captura foi concluída
                             if (callback != null) {
                                 callback.onCaptureComplete(recorte);
                             }
-                            
+
                             // Fecha a janela de captura
                             janela.dispose();
-                               activeWindow = null;
+                            activeWindow = null;
                         } catch (Exception ex) {
                             // Em caso de erro, fecha a janela e exibe mensagem
                             janela.dispose();
@@ -187,7 +188,8 @@ public class ScreenCaptureService {
         }
     }
 
-    // Método que recalcula o retângulo da seleção com base nos pontos inicial e final
+    // Método que recalcula o retângulo da seleção com base nos pontos inicial e
+    // final
     public void updateSelection() {
         // Se algum ponto for nulo, não faz nada
         if (startPoint == null || endPoint == null)
