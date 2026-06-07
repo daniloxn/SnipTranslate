@@ -87,16 +87,24 @@ public class HotKeyListener implements NativeKeyListener {
                     // Extrai texto da imagem usando OCR
                     OCRService ocr = new OCRService();
                     String textocr = ocr.extractText(imagemCapturada);
-                    System.out.println("Texto: " + textocr);
+                    System.out.println("\nTexto: " + textocr);
+                    // Verifica se o OCR retornou algum texto
+                    if (textocr == "") {
+                        Platform.runLater(() -> {
+                            FloatingPanel panel = new FloatingPanel();
+                            panel.showTranslation("\nNenhum texto encontrado na imagem");
+                        });
+                    }
+                    // Se o OCR encontrou texto, traduz e exibe
+                    else {
+                        String traduzido = TranslationService.translateText(textocr);
+                        System.out.println("\nTraduzido: " + traduzido);
 
-                    // Traduz o texto extraído
-                    String traduzido = TranslationService.translateText(textocr);
-                    System.out.println("Traduzido: " + traduzido);
-
-                    Platform.runLater(() -> {
-                        FloatingPanel panel = new FloatingPanel();
-                        panel.showTranslation(traduzido);
-                    });
+                        Platform.runLater(() -> {
+                            FloatingPanel panel = new FloatingPanel();
+                            panel.showTranslation(traduzido);
+                        });
+                    }
 
                 }).start();
             });
