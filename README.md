@@ -60,13 +60,17 @@ Tudo isso sem janelas poluídas ou configurações complicadas — pelo menos es
 
 ## Instalação e Configuração
 
-### 1. Baixe o JAR mais recente
+Baixe ou clone o repositório:
 
-Acesse a seção [Releases](https://github.com/seu-usuario/SnippingTranslate/releases) e faça o download do arquivo `.jar`.
+git clone https://github.com/daniloxn/SnipTranslate.git
+
+ou acesse:
+
+https://github.com/daniloxn/SnipTranslate
 
 ### 2. Configure a chave da API DeepL
 
-1. Crie uma conta gratuita em [DeepL API Free](https://www.deepl.com/pro-api) e obtenha sua chave de autenticação.
+1. Crie uma conta gratuita em [DeepL API Free](https://www.deepl.com/pt-BR/translator) e vá na aba de [API](https://www.deepl.com/pt-BR/your-account/keys) e obtenha sua chave de autenticação.
 2. Assim que abrir o aplicativo pela primeira vez, coloque sua api-key.
 
 ### 3. Execute o JAR
@@ -131,7 +135,9 @@ SnippingTranslate/
 │               └── eng.traineddata
 ├── pom.xml                                    # Configuração Maven
 ├── .env                                       # Chave da API (não versionado)
-└── README.md
+├── README.md
+└──SnipTranslate.jar
+
 ```
 
 ---
