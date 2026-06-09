@@ -15,10 +15,7 @@ public class LanguageConfig {
         SPANISH("es", "Español (Espanhol)"),
         FRENCH("fr", "Français (Francês)"),
         GERMAN("de", "Deutsch (Alemão)"),
-        ITALIAN("it", "Italiano"),
-        RUSSIAN("ru", "Русский (Russo)"),
-        JAPANESE("ja", "日本語 (Japonês)"),
-        CHINESE("zh", "中文 (Chinês)");
+        ITALIAN("it", "Italiano");
 
         public final String code;
         public final String displayName;
