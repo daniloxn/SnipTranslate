@@ -1,7 +1,6 @@
 package com.snippingtranslate.config;
 
 import java.io.*;
-import java.nio.file.*;
 import java.util.*;
 
 /**
@@ -54,17 +53,14 @@ public class ConfigManager {
      */
     private void setDefaults() {
         properties.setProperty(
-            LanguageConfig.CONFIG_KEY_SOURCE_LANG,
-            LanguageConfig.DEFAULT_SOURCE_LANGUAGE.code
-        );
+                LanguageConfig.CONFIG_KEY_SOURCE_LANG,
+                LanguageConfig.DEFAULT_SOURCE_LANGUAGE.code);
         properties.setProperty(
-            LanguageConfig.CONFIG_KEY_TARGET_LANG,
-            LanguageConfig.DEFAULT_TARGET_LANGUAGE.code
-        );
+                LanguageConfig.CONFIG_KEY_TARGET_LANG,
+                LanguageConfig.DEFAULT_TARGET_LANGUAGE.code);
         properties.setProperty(
-            LanguageConfig.CONFIG_KEY_THEME,
-            LanguageConfig.DEFAULT_THEME
-        );
+                LanguageConfig.CONFIG_KEY_THEME,
+                LanguageConfig.DEFAULT_THEME);
     }
 
     /**
@@ -120,7 +116,7 @@ public class ConfigManager {
      */
     public LanguageConfig.SourceLanguage getSourceLanguage() {
         String code = getString(LanguageConfig.CONFIG_KEY_SOURCE_LANG,
-            LanguageConfig.DEFAULT_SOURCE_LANGUAGE.code);
+                LanguageConfig.DEFAULT_SOURCE_LANGUAGE.code);
         return LanguageConfig.SourceLanguage.fromCode(code);
     }
 
@@ -136,7 +132,7 @@ public class ConfigManager {
      */
     public LanguageConfig.TargetLanguage getTargetLanguage() {
         String code = getString(LanguageConfig.CONFIG_KEY_TARGET_LANG,
-            LanguageConfig.DEFAULT_TARGET_LANGUAGE.code);
+                LanguageConfig.DEFAULT_TARGET_LANGUAGE.code);
         return LanguageConfig.TargetLanguage.fromCode(code);
     }
 
