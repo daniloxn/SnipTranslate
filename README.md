@@ -1,6 +1,4 @@
-﻿
-
-# SnipTranslate
+﻿# SnipTranslate
 
 **Capture trechos da tela, extraia texto automaticamente e traduza para o português — tudo em poucos cliques.**
 
@@ -39,13 +37,13 @@ Tudo isso sem janelas poluídas ou configurações complicadas — pelo menos es
 
 ## Tecnologias
 
-| Tecnologia | Motivo da escolha 
+| Tecnologia | Motivo da escolha
 
 | **Tesseract 4 (via tess4j)** | Motor OCR open-source mais preciso e consolidado. A biblioteca `tess4j` simplifica a integração Java. |
 
 | **Maven** | Gerenciamento de dependências simplificado e padrão no ecossistema Java. |
 
-> *Nota:* O Tesseract requer arquivos de dados de idioma (`tessdata`), que atualmente são resolvidos dinamicamente dentro do projeto (não é mais um caminho fixo). A instalação do Tesseract no sistema ainda é necessária, mas planejamos empacotá-la junto com o instalador.
+> _Nota:_ O Tesseract requer arquivos de dados de idioma (`tessdata`), que atualmente são resolvidos dinamicamente dentro do projeto (não é mais um caminho fixo). A instalação do Tesseract no sistema ainda é necessária, mas planejamos empacotá-la junto com o instalador.
 
 ---
 
@@ -95,7 +93,7 @@ ou apenas dando dois click no arquivo SnipTranslate.jar.
 4. **Solte o mouse** – O processamento inicia automaticamente.
 5. **Aguarde** – O texto extraído e traduzido será exibido na overlay.
 
-> 📸 *Em breve: screenshot demonstrativa do fluxo.*
+> 📸 _Em breve: screenshot demonstrativa do fluxo._
 
 ---
 
@@ -109,7 +107,7 @@ SnippingTranslate/
 │       │   └── com/
 │       │       └── snippingtranslate/
 │       │           ├── AppLauncher.java  # Ponto de entrada
-│       │           ├── Main.java              
+│       │           ├── Main.java
 │       │           ├── background/
 │       │           │   ├── HotKeyListener.java
 │       │           ├── config/
@@ -136,7 +134,9 @@ SnippingTranslate/
 ├── pom.xml                                    # Configuração Maven
 ├── .env                                       # Chave da API (não versionado)
 ├── README.md
-└──SnipTranslate.jar
+├── SnipTranslate-1.0.jar
+└── main.bat                                   # Inicializador improvisado para testes
+
 
 ```
 
@@ -154,13 +154,13 @@ SnippingTranslate/
 
 ## Roadmap 🗺️
 
-| Etapa | Status 
+| Etapa | Status
 
 | Ícone na bandeja do sistema | ✔️ Concluído | ✅
 
 | Caminho dinâmico do tessdata | ✔️ Concluído | ✅
 
-| **Melhorias futuras** 
+| **Melhorias futuras**
 
 | Empacotar Tesseract no instalador .exe | 🔄 Planejado |
 

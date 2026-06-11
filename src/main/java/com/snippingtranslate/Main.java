@@ -1,5 +1,7 @@
 package com.snippingtranslate;
 
+import java.net.ServerSocket;
+
 import com.snippingtranslate.background.HotKeyListener;
 import com.snippingtranslate.screen.ApiKeySetupDialog;
 import com.snippingtranslate.service.ConfigService;
@@ -14,7 +16,20 @@ import javafx.stage.Stage;
  * Inicializa configurações, tray icon, hotkeys e verifica chave API
  */
 public class Main extends Application {
+
+    private static ServerSocket lockSocket;
+
     public static void main(String[] args) {
+        try {
+            // Tenta ocupar a porta
+            lockSocket = new ServerSocket(9999);
+        } catch (Exception e) {
+            // Se der erro é porque a porta já está em uso por outra instância
+            javax.swing.JOptionPane.showMessageDialog(null, "O SnipTranslate já está em execução!", "Aviso",
+                    javax.swing.JOptionPane.WARNING_MESSAGE);
+            System.exit(1);
+        }
+
         System.out.println("🚀 SnippingTranslate iniciando...\n");
         launch(args);
     }
