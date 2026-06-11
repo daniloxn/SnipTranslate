@@ -17,6 +17,7 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
+    @SuppressWarnings("unused")
     private static ServerSocket lockSocket;
 
     public static void main(String[] args) {
